@@ -1,0 +1,14 @@
+node_modules
+dist
+.env.local
+playwright-report
+test-results
+blob-report
+.shot.mjs
+.*.mjs
+
+# TanStack Router plugin cache
+.tanstack/
+
+# Figma reference screenshots (kept locally, not part of the deliverable)
+/*.png
