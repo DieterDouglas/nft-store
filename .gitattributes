@@ -1,0 +1,4 @@
+# Keep LF in the repo and working copies (Windows dev, Linux CI/Vercel)
+* text=auto eol=lf
+*.png binary
+*.webp binary
