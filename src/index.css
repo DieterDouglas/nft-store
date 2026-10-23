@@ -1,0 +1,111 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import '@fontsource/roboto-mono/400.css';
+@import '@fontsource/roboto-mono/500.css';
+@import '@fontsource/roboto-mono/700.css';
+@import '@fontsource/space-mono/700.css';
+
+@custom-variant dark (&:is(.dark *));
+
+/* Kurio palette (sampled from the Figma export). Only a dark theme exists in the layout. */
+:root {
+  --background: #140d0a;
+  --foreground: #f3e9dc;
+  --card: #241612;
+  --card-foreground: #f3e9dc;
+  --popover: #241612;
+  --popover-foreground: #f3e9dc;
+  --primary: #d28a4c;
+  --primary-foreground: #140d0a;
+  --secondary: #38220f;
+  --secondary-foreground: #f3e9dc;
+  --muted: #2e1d17;
+  /* #bfa58f on #140d0a / #241612 keeps contrast >= 4.5:1 (WCAG AA) */
+  --muted-foreground: #bfa58f;
+  --accent: #38220f;
+  --accent-foreground: #f3e9dc;
+  --destructive: #f07167;
+  --success: #7fc99a;
+  --border: #4a3226;
+  --input: #4a3226;
+  --ring: #d28a4c;
+  --radius: 0.375rem;
+}
+
+@theme inline {
+  --font-sans: 'Roboto Mono', ui-monospace, monospace;
+  --font-mono: 'Roboto Mono', ui-monospace, monospace;
+  --font-display: 'Space Mono', 'Roboto Mono', ui-monospace, monospace;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-success: var(--success);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 4px);
+  --radius-xl: calc(var(--radius) + 10px);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    color-scheme: dark;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    letter-spacing: 0.02em;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-ring;
+  }
+}
+
+/* Skeleton shimmer: a moving highlight over the placeholder surface. */
+@utility shimmer {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--muted);
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.06), transparent);
+    animation: shimmer 1.4s infinite;
+  }
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
