@@ -39,9 +39,13 @@ export function userCartId(userId: string) {
   return `cart-u-${userId}`
 }
 
+/** Client-minted visitor cart ids (see guestCart.ensure). */
+const GUEST_CART_ID = /^cart-g-[0-9a-f-]{36}$/
+
 export function getOrCreateCart(userId: string | null, guestCartId: string | null): MockCart {
   const s = db()
-  const id = userId ? userCartId(userId) : guestCartId && s.carts[guestCartId]?.ownerId === null ? guestCartId : nextId('cart-g')
+  const usableGuestId = guestCartId && GUEST_CART_ID.test(guestCartId) && (s.carts[guestCartId]?.ownerId ?? null) === null
+  const id = userId ? userCartId(userId) : usableGuestId ? guestCartId : nextId('cart-g')
   s.carts[id] ??= { id, ownerId: userId, lines: [], couponCode: null, updatedAt: new Date().toISOString() }
   return s.carts[id]
 }

@@ -56,10 +56,7 @@ export function toApiError(error: unknown): ApiError {
 http.interceptors.request.use((config) => {
   const session = sessionStore.get()
   if (session) config.headers.set('Authorization', `Bearer ${session.token}`)
-  else {
-    const cartId = guestCart.get()
-    if (cartId) config.headers.set('X-Cart-Id', cartId)
-  }
+  else config.headers.set('X-Cart-Id', guestCart.ensure())
   return config
 })
 

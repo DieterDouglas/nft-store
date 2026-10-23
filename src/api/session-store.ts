@@ -81,4 +81,16 @@ export const guestCart = {
       // ignore
     }
   },
+  /**
+   * The visitor's cart id is minted client-side before the first request, so concurrent
+   * first calls (cart badge GET + "add to cart" POST) all target the same cart instead of
+   * each creating one on the server.
+   */
+  ensure(): string {
+    const existing = guestCart.get()
+    if (existing) return existing
+    const id = `cart-g-${crypto.randomUUID()}`
+    guestCart.set(id)
+    return id
+  },
 }

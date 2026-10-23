@@ -1,5 +1,5 @@
 import type { QueryClient } from '@tanstack/react-query'
-import { api } from '@/api/endpoints'
+import { api, qk } from '@/api/endpoints'
 import { guestCart, sessionStore } from '@/api/session-store'
 import type { Session } from '@/api/types'
 
@@ -13,11 +13,17 @@ export async function completeLogin(session: Session, queryClient: QueryClient) 
 
   const guestCartId = guestCart.get()
   sessionStore.start(session)
+  const cartKey = qk.cart(session.user.id)
   try {
-    await api.cart.merge(guestCartId)
+    const merged = await api.cart.merge(guestCartId)
+    // Starting the session already fired a cart fetch that may have read the pre-merge
+    // (empty) cart: store the merged result and refetch, cancelling that stale request.
+    queryClient.setQueryData(cartKey, merged)
   } catch {
     // The account cart still loads; the visitor cart stays on the server until next login.
     return
+  } finally {
+    void queryClient.invalidateQueries({ queryKey: cartKey })
   }
   guestCart.set(null)
   queryClient.removeQueries({ queryKey: ['guest'] })
