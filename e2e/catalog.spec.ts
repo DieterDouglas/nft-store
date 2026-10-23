@@ -52,6 +52,7 @@ test('busca e filtros combinados refletem na URL, na API e sobrevivem a voltar/r
 
 test('paginação, ordenação e reinício da página ao mudar filtro', async ({ page }) => {
   await open(page, '/')
+  await expect(cardNames(page)).toHaveCount(9) // first page fully rendered before reading it
   const firstPage = await cardNames(page).allTextContents()
 
   await page.getByRole('link', { name: 'Página 2', exact: true }).click()
