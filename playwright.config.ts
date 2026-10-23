@@ -16,7 +16,8 @@ export default defineConfig({
     toHaveScreenshot: { maxDiffPixelRatio: 0.01, animations: 'disabled' },
   },
   use: {
-    baseURL: `http://localhost:${PORT}`,
+    // Explicit IPv4: "localhost" may resolve to ::1 for the server and 127.0.0.1 for the browser.
+    baseURL: `http://127.0.0.1:${PORT}`,
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
     locale: 'pt-BR',
@@ -26,10 +27,13 @@ export default defineConfig({
     { name: 'desktop', use: { ...devices['Desktop Chrome'], viewport: { width: 1440, height: 900 } } },
     { name: 'mobile', use: { ...devices['Pixel 7'], viewport: { width: 390, height: 844 } } },
   ],
+  // Tests run against the production build (same bundle that is deployed). The dev server
+  // compiles modules on demand and could not keep up with parallel workers.
   webServer: {
-    command: `npx vite --port ${PORT} --strictPort`,
-    url: `http://localhost:${PORT}`,
+    command: `npm run build && npx vite preview --host 127.0.0.1 --port ${PORT} --strictPort`,
+    url: `http://127.0.0.1:${PORT}`,
     reuseExistingServer: !process.env.CI,
+    timeout: 180_000,
     env: { VITE_ENABLE_MOCKS: 'true' },
   },
 })
