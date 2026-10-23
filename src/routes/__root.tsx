@@ -85,7 +85,13 @@ function RootLayout() {
       {showTabBar && <MobileTabBar />}
       <AuthDialog />
       <RealtimeAnnouncer />
-      <Toaster position={isMobile ? 'top-center' : 'bottom-right'} closeButton />
+      {/* Mobile: below the top bar (back/favorite buttons stay reachable) and above the bottom bars. */}
+      <Toaster
+        position={isMobile ? 'top-center' : 'bottom-right'}
+        offset={isMobile ? { top: 88 } : undefined}
+        mobileOffset={isMobile ? { top: 88, left: 16, right: 16 } : undefined}
+        closeButton
+      />
       {MockPanel && (
         <Suspense>
           <MockPanel />
