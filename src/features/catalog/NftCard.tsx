@@ -36,6 +36,13 @@ export function NftCard({ nft, priority = false }: { nft: NftSummary; priority?:
         {nft.soldOut && (
           <span className="absolute top-14 right-3 md:top-3 rounded bg-background/90 px-2 py-0.5 text-xs font-bold uppercase">Esgotado</span>
         )}
+        {/* Desktop: favorited pieces stay marked without hovering (the toggle lives in the actions). */}
+        {isFavorite && (
+          <span className={cn('absolute right-4 hidden size-8 place-items-center rounded-full bg-background/80 text-primary md:grid', nft.soldOut ? 'top-11' : 'top-4')}>
+            <Heart aria-hidden className="size-4 fill-primary" />
+            <span className="sr-only">Nos seus favoritos</span>
+          </span>
+        )}
         {/* Quick actions: always reachable by keyboard, revealed on hover/focus for pointer users. */}
         <div className="absolute right-4 bottom-4 hidden gap-1.5 transition-opacity md:flex md:opacity-0 md:group-focus-within:opacity-100 md:group-hover:opacity-100">
           <Button
@@ -47,7 +54,7 @@ export function NftCard({ nft, priority = false }: { nft: NftSummary; priority?:
           >
             <ShoppingCart />
           </Button>
-          {session && (
+          {session ? (
             <Button
               size="icon-sm"
               variant="secondary"
@@ -56,6 +63,13 @@ export function NftCard({ nft, priority = false }: { nft: NftSummary; priority?:
               onClick={() => toggleFavorite.mutate({ nftId: nft.id, favorite: !isFavorite, name: nft.name })}
             >
               <Heart className={cn(isFavorite && 'fill-primary text-primary')} />
+            </Button>
+          ) : (
+            // Guests see the action too (Figma hover state); it opens the login modal over this page.
+            <Button size="icon-sm" variant="secondary" asChild>
+              <Link to="." search={(prev) => ({ ...prev, auth: 'entrar' as const })} aria-label={`Entre para favoritar ${nft.name}`}>
+                <Heart />
+              </Link>
             </Button>
           )}
           <Button size="icon-sm" variant="secondary" asChild>
