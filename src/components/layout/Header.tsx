@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Link, useLocation, useNavigate } from '@tanstack/react-router'
 import { Heart, LogIn, LogOut, Search, ShoppingCart, User, Wallet } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -120,8 +119,6 @@ function AccountMenu() {
 }
 
 export function Header() {
-  const [searchOpen, setSearchOpen] = useState(false)
-
   return (
     // Mobile uses MobileTabBar + per-screen top bars instead (Figma mobile frames).
     <header className="mx-auto hidden w-full max-w-[1200px] px-4 md:block">
@@ -137,14 +134,17 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-1 sm:gap-3">
-          <Button variant="ghost" size="icon" aria-label="Buscar" onClick={() => setSearchOpen(true)}>
-            <Search className="size-5" />
-          </Button>
+          <SearchDialog
+            trigger={
+              <Button variant="ghost" size="icon" aria-label="Buscar">
+                <Search className="size-5" />
+              </Button>
+            }
+          />
           <CartLink />
           <AccountMenu />
         </div>
       </div>
-      <SearchDialog open={searchOpen} onOpenChange={setSearchOpen} />
     </header>
   )
 }

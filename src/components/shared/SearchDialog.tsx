@@ -1,14 +1,20 @@
-import { useState } from 'react'
+import { useState, type ReactElement } from 'react'
 import { useNavigate } from '@tanstack/react-router'
 import { Button } from '@/components/ui/button'
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 
-export function SearchDialog({ open, onOpenChange }: { open: boolean; onOpenChange: (open: boolean) => void }) {
+/**
+ * Catalog search dialog. The caller's button becomes a Radix DialogTrigger, so focus
+ * returns to it when the dialog closes (keyboard users keep their place).
+ */
+export function SearchDialog({ trigger }: { trigger: ReactElement }) {
   const navigate = useNavigate()
+  const [open, setOpen] = useState(false)
   const [q, setQ] = useState('')
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>{trigger}</DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Buscar NFTs</DialogTitle>
@@ -18,7 +24,7 @@ export function SearchDialog({ open, onOpenChange }: { open: boolean; onOpenChan
           role="search"
           onSubmit={(e) => {
             e.preventDefault()
-            onOpenChange(false)
+            setOpen(false)
             void navigate({ to: '/', search: (prev) => ({ ...prev, q: q.trim() || undefined, page: undefined }), hash: 'catalogo' })
           }}
           className="flex gap-2"

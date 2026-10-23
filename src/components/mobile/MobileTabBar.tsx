@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Link, useLocation } from '@tanstack/react-router'
 import { Heart, House, ShoppingCart, UserRound } from 'lucide-react'
 import searchIcon from '@/assets/mobile-icon-home-footer.svg'
@@ -11,7 +10,6 @@ const item = 'grid size-12 place-items-center rounded-full transition-colors'
 /** Bottom navigation of the mobile frames; the raised center button opens search. */
 export function MobileTabBar() {
   const { pathname } = useLocation()
-  const [searchOpen, setSearchOpen] = useState(false)
   const count = useCart().data?.itemCount ?? 0
   const tone = (active: boolean) => (active ? 'text-primary' : 'text-foreground/70 hover:text-primary')
 
@@ -25,14 +23,17 @@ export function MobileTabBar() {
           <Heart className="size-6" fill={pathname === '/favoritos' ? 'currentColor' : 'none'} />
         </Link>
         {/* Transparent search button with the Figma icon (decorative img; the button carries the name). */}
-        <button
-          type="button"
-          aria-label="Buscar NFTs"
-          onClick={() => setSearchOpen(true)}
-          className="grid size-14 place-items-center rounded-full bg-transparent transition-transform hover:bg-muted/40 active:scale-95"
-        >
-          <img src={searchIcon} alt="" width={27} height={24} className="size-7" />
-        </button>
+        <SearchDialog
+          trigger={
+            <button
+              type="button"
+              aria-label="Buscar NFTs"
+              className="grid size-14 place-items-center rounded-full bg-transparent transition-transform hover:bg-muted/40 active:scale-95"
+            >
+              <img src={searchIcon} alt="" width={27} height={24} className="size-7" />
+            </button>
+          }
+        />
         <Link
           to="/carrinho"
           aria-label={`Carrinho, ${count} ${count === 1 ? 'item' : 'itens'}`}
@@ -55,7 +56,6 @@ export function MobileTabBar() {
           <UserRound className="size-6" fill={['/perfil', '/carteiras'].includes(pathname) ? 'currentColor' : 'none'} />
         </Link>
       </div>
-      <SearchDialog open={searchOpen} onOpenChange={setSearchOpen} />
     </nav>
   )
 }
