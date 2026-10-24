@@ -2,6 +2,8 @@
 
 Implementação do desafio frontend da Jungle Gaming: marketplace de NFTs com catálogo, detalhe, carrinho, pagamento com carteira, confirmação, conta do colecionador e carteiras — desktop e mobile, seguindo o Figma.
 
+**Aplicação publicada:** https://nft-store-sage.vercel.app · **Repositório:** https://github.com/DieterDouglas/nft-store
+
 Toda a "API" e o tempo real rodam **no navegador**, simulados com MSW (REST + Socket.IO). Não há backend: a aplicação funciona a partir de um checkout limpo e também no build publicado.
 
 > Decisões de arquitetura, contratos REST/eventos, política de sessão, cache, reconciliação REST × Socket.IO, desvios do Figma, limitações e análise de performance: **[ARCHITECTURE.md](ARCHITECTURE.md)**.
@@ -148,6 +150,7 @@ O cenário ativo afeta as próximas requisições e é persistido no navegador. 
 | `e2e/visual.spec.ts` | Regressão visual de início, detalhe, carrinho e pagamento (baselines versionadas) |
 
 - Relatório HTML: `playwright-report/` (`npm run test:e2e:report`); traces e screenshots apenas das falhas.
+- Contra um deploy (sem servidor local): `E2E_BASE_URL=https://nft-store-sage.vercel.app npm run test:e2e` — a suíte completa (84) passa contra a aplicação publicada.
 - As baselines visuais foram geradas no Windows (sufixo `-win32`). Em outro SO, gere as do ambiente com `npm run test:e2e:update` (a renderização de fontes difere entre sistemas).
 
 ## Auditoria Lighthouse
