@@ -1,25 +1,25 @@
 # Lighthouse — resultados
 
-Gerado por `npm run lighthouse` em 2026-10-24T00:09:18.384Z. Valores = mediana de 3 execuções por página, perfil e método.
+Gerado por `npm run lighthouse` em 2026-10-24T13:10:17.669Z. Valores = mediana de 3 execuções por página, perfil e método.
 Metas: Performance ≥ 90, Accessibility ≥ 95, Best Practices ≥ 95, SEO ≥ 90. Análise dos resultados abaixo da meta: ARCHITECTURE.md › Performance.
 
 ## Throttling aplicado (devtools) — medição principal
 
 | Página | Perfil | Performance | Accessibility | Best Practices | SEO | LCP | CLS | TBT |
 | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| home (`/`) | mobile | **66** ⚠️ | 96 | 96 | 92 | 4676 ms | 0.015 | 288 ms |
-| home (`/`) | desktop | 100 | 97 | 100 | 92 | 343 ms | 0.002 | 0 ms |
-| detail (`/nft/nft-001`) | mobile | **58** ⚠️ | 97 | 100 | 92 | 6278 ms | 0.001 | 320 ms |
-| detail (`/nft/nft-001`) | desktop | 99 | 97 | 100 | 92 | 893 ms | 0 | 0 ms |
+| home (`/`) | mobile | **66** ⚠️ | 96 | 96 | 92 | 4354 ms | 0.015 | 350 ms |
+| home (`/`) | desktop | 97 | 97 | 100 | 92 | 1022 ms | 0.001 | 0 ms |
+| detail (`/nft/nft-001`) | mobile | **59** ⚠️ | 97 | 100 | 92 | 6165 ms | 0.001 | 292 ms |
+| detail (`/nft/nft-001`) | desktop | 91 | 97 | 100 | 92 | 1823 ms | 0 | 0 ms |
 
 ## Throttling simulado (Lantern, padrão do Lighthouse) — referência
 
 | Página | Perfil | Performance | Accessibility | Best Practices | SEO | LCP | CLS | TBT |
 | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| home (`/`) | mobile | **71** ⚠️ | 96 | 96 | 92 | 4871 ms | 0.015 | 197 ms |
-| home (`/`) | desktop | 98 | 97 | 100 | 92 | 1027 ms | 0.002 | 1 ms |
-| detail (`/nft/nft-001`) | mobile | **73** ⚠️ | 97 | 100 | 92 | 4644 ms | 0.001 | 185 ms |
-| detail (`/nft/nft-001`) | desktop | 98 | 97 | 100 | 92 | 1055 ms | 0 | 3 ms |
+| home (`/`) | mobile | **72** ⚠️ | 96 | 96 | 92 | 4838 ms | 0.015 | 174 ms |
+| home (`/`) | desktop | 98 | 97 | 100 | 92 | 1017 ms | 0.002 | 0 ms |
+| detail (`/nft/nft-001`) | mobile | **73** ⚠️ | 97 | 100 | 92 | 4635 ms | 0.001 | 174 ms |
+| detail (`/nft/nft-001`) | desktop | 98 | 97 | 100 | 92 | 1061 ms | 0 | 1 ms |
 
 ### Métodos de throttling
 
@@ -29,7 +29,7 @@ Metas: Performance ≥ 90, Accessibility ≥ 95, Best Practices ≥ 95, SEO ≥ 
 
 ## Ambiente
 
-- **date**: 2026-10-24T00:09:18.384Z
+- **date**: 2026-10-24T13:10:17.669Z
 - **lighthouse**: 13.5.0
 - **chromium**: chromium (Playwright 1.64.1)
 - **node**: v24.18.0
@@ -46,59 +46,59 @@ Metas: Performance ≥ 90, Accessibility ≥ 95, Best Practices ≥ 95, SEO ≥ 
 
 | Run | Perf | A11y | BP | SEO | LCP | CLS | TBT |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| 1 | 66 | 96 | 96 | 92 | 4676 ms | 0.015 | 286 ms |
-| 2 | 70 | 96 | 96 | 92 | 4178 ms | 0.015 | 288 ms |
-| 3 | 55 | 96 | 96 | 92 | 4920 ms | 0.015 | 558 ms |
+| 1 | 61 | 96 | 96 | 92 | 5105 ms | 0.015 | 320 ms |
+| 2 | 66 | 96 | 96 | 92 | 4354 ms | 0.015 | 350 ms |
+| 3 | 66 | 96 | 96 | 92 | 4281 ms | 0.015 | 389 ms |
 
-Auditorias abaixo de 0,9: first-contentful-paint: 4.7 s; largest-contentful-paint: 4.7 s; speed-index: 4.6 s; total-blocking-time: 290 ms; max-potential-fid: 180 ms; interactive: 6.2 s; image-size-responsive: Serves images with low resolution; mainthread-work-breakdown: 2.8 s; bootup-time: 1.4 s; valid-source-maps: Missing source maps for large first-party JavaScript; target-size: Touch targets do not have sufficient size or spacing.; unused-javascript: Est savings of 149 KiB
+Auditorias abaixo de 0,9: first-contentful-paint: 4.4 s; largest-contentful-paint: 4.4 s; speed-index: 4.4 s; total-blocking-time: 350 ms; max-potential-fid: 220 ms; interactive: 6.3 s; image-size-responsive: Serves images with low resolution; mainthread-work-breakdown: 3.5 s; bootup-time: 1.7 s; valid-source-maps: Missing source maps for large first-party JavaScript; target-size: Touch targets do not have sufficient size or spacing.; unused-javascript: Est savings of 151 KiB
 
 ### home — desktop — devtools
 
 | Run | Perf | A11y | BP | SEO | LCP | CLS | TBT |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| 1 | 100 | 97 | 100 | 92 | 357 ms | 0.002 | 0 ms |
-| 2 | 100 | 97 | 100 | 92 | 343 ms | 0.002 | 0 ms |
-| 3 | 100 | 97 | 100 | 92 | 309 ms | 0.002 | 0 ms |
+| 1 | 97 | 97 | 100 | 92 | 1038 ms | 0.001 | 0 ms |
+| 2 | 97 | 97 | 100 | 92 | 1022 ms | 0.001 | 0 ms |
+| 3 | 97 | 97 | 100 | 92 | 983 ms | 0.001 | 0 ms |
 
-Auditorias abaixo de 0,9: valid-source-maps: Missing source maps for large first-party JavaScript; target-size: Touch targets do not have sufficient size or spacing.; unused-javascript: Est savings of 151 KiB; robots-txt: 32 errors found; bf-cache: 1 failure reason; image-delivery-insight: Est savings of 59 KiB; network-dependency-tree-insight: Network dependency tree; render-blocking-insight: Render-blocking requests
+Auditorias abaixo de 0,9: first-contentful-paint: 1.0 s; valid-source-maps: Missing source maps for large first-party JavaScript; target-size: Touch targets do not have sufficient size or spacing.; unused-javascript: Est savings of 151 KiB; robots-txt: 32 errors found; bf-cache: 1 failure reason; image-delivery-insight: Est savings of 39 KiB; network-dependency-tree-insight: Network dependency tree; render-blocking-insight: Est savings of 40 ms
 
 ### detail — mobile — devtools
 
 | Run | Perf | A11y | BP | SEO | LCP | CLS | TBT |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| 1 | 57 | 97 | 100 | 92 | 6278 ms | 0.001 | 335 ms |
-| 2 | 59 | 97 | 100 | 92 | 6137 ms | 0.001 | 320 ms |
-| 3 | 58 | 97 | 100 | 92 | 6309 ms | 0.001 | 295 ms |
+| 1 | 59 | 97 | 100 | 92 | 6165 ms | 0.001 | 292 ms |
+| 2 | 57 | 97 | 100 | 92 | 6239 ms | 0.001 | 339 ms |
+| 3 | 62 | 97 | 100 | 92 | 6072 ms | 0.001 | 225 ms |
 
-Auditorias abaixo de 0,9: first-contentful-paint: 4.5 s; largest-contentful-paint: 6.3 s; speed-index: 5.4 s; total-blocking-time: 300 ms; max-potential-fid: 150 ms; interactive: 6.1 s; mainthread-work-breakdown: 2.4 s; bootup-time: 1.5 s; valid-source-maps: Missing source maps for large first-party JavaScript; target-size: Touch targets do not have sufficient size or spacing.; unused-javascript: Est savings of 158 KiB; robots-txt: 32 errors found
+Auditorias abaixo de 0,9: first-contentful-paint: 4.4 s; largest-contentful-paint: 6.2 s; speed-index: 5.3 s; total-blocking-time: 290 ms; max-potential-fid: 180 ms; interactive: 6.0 s; mainthread-work-breakdown: 2.2 s; bootup-time: 1.4 s; valid-source-maps: Missing source maps for large first-party JavaScript; target-size: Touch targets do not have sufficient size or spacing.; unused-javascript: Est savings of 158 KiB; robots-txt: 32 errors found
 
 ### detail — desktop — devtools
 
 | Run | Perf | A11y | BP | SEO | LCP | CLS | TBT |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| 1 | 99 | 97 | 100 | 92 | 830 ms | 0 | 0 ms |
-| 2 | 99 | 97 | 100 | 92 | 893 ms | 0 | 0 ms |
-| 3 | 99 | 97 | 100 | 92 | 938 ms | 0 | 0 ms |
+| 1 | 91 | 97 | 100 | 92 | 1823 ms | 0 | 0 ms |
+| 2 | 90 | 97 | 100 | 92 | 1856 ms | 0 | 0 ms |
+| 3 | 91 | 97 | 100 | 92 | 1813 ms | 0 | 0 ms |
 
-Auditorias abaixo de 0,9: valid-source-maps: Missing source maps for large first-party JavaScript; target-size: Touch targets do not have sufficient size or spacing.; unused-javascript: Est savings of 155 KiB; robots-txt: 32 errors found; bf-cache: 1 failure reason; image-delivery-insight: Est savings of 15 KiB; network-dependency-tree-insight: Network dependency tree; render-blocking-insight: Render-blocking requests
+Auditorias abaixo de 0,9: largest-contentful-paint: 1.8 s; valid-source-maps: Missing source maps for large first-party JavaScript; target-size: Touch targets do not have sufficient size or spacing.; unused-javascript: Est savings of 155 KiB; robots-txt: 32 errors found; bf-cache: 1 failure reason; image-delivery-insight: Est savings of 15 KiB; network-dependency-tree-insight: Network dependency tree; render-blocking-insight: Est savings of 40 ms
 
 ### home — mobile — simulate
 
 | Run | Perf | A11y | BP | SEO | LCP | CLS | TBT |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| 1 | 71 | 96 | 96 | 92 | 4881 ms | 0.015 | 192 ms |
-| 2 | 71 | 96 | 96 | 92 | 4858 ms | 0.015 | 200 ms |
-| 3 | 71 | 96 | 96 | 92 | 4871 ms | 0.015 | 197 ms |
+| 1 | 71 | 96 | 96 | 92 | 4838 ms | 0.015 | 189 ms |
+| 2 | 72 | 96 | 96 | 92 | 4845 ms | 0.015 | 174 ms |
+| 3 | 72 | 96 | 96 | 92 | 4828 ms | 0.015 | 167 ms |
 
-Auditorias abaixo de 0,9: first-contentful-paint: 3.8 s; largest-contentful-paint: 4.9 s; speed-index: 3.8 s; interactive: 5.2 s; image-size-responsive: Serves images with low resolution; valid-source-maps: Missing source maps for large first-party JavaScript; target-size: Touch targets do not have sufficient size or spacing.; unused-javascript: Est savings of 150 KiB; robots-txt: 32 errors found; bf-cache: 1 failure reason; image-delivery-insight: Est savings of 37 KiB; network-dependency-tree-insight: Network dependency tree
+Auditorias abaixo de 0,9: first-contentful-paint: 3.7 s; largest-contentful-paint: 4.8 s; speed-index: 3.7 s; interactive: 5.1 s; image-size-responsive: Serves images with low resolution; valid-source-maps: Missing source maps for large first-party JavaScript; target-size: Touch targets do not have sufficient size or spacing.; unused-javascript: Est savings of 150 KiB; robots-txt: 32 errors found; bf-cache: 1 failure reason; image-delivery-insight: Est savings of 37 KiB; network-dependency-tree-insight: Network dependency tree
 
 ### home — desktop — simulate
 
 | Run | Perf | A11y | BP | SEO | LCP | CLS | TBT |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| 1 | 98 | 97 | 100 | 92 | 1022 ms | 0.002 | 0 ms |
-| 2 | 98 | 97 | 100 | 92 | 1027 ms | 0.002 | 1 ms |
-| 3 | 98 | 97 | 100 | 92 | 1037 ms | 0.002 | 9 ms |
+| 1 | 98 | 97 | 100 | 92 | 1018 ms | 0.002 | 0 ms |
+| 2 | 98 | 97 | 100 | 92 | 1015 ms | 0.002 | 0 ms |
+| 3 | 98 | 97 | 100 | 92 | 1017 ms | 0.002 | 0 ms |
 
 Auditorias abaixo de 0,9: valid-source-maps: Missing source maps for large first-party JavaScript; target-size: Touch targets do not have sufficient size or spacing.; unused-javascript: Est savings of 151 KiB; robots-txt: 32 errors found; bf-cache: 1 failure reason; image-delivery-insight: Est savings of 59 KiB; network-dependency-tree-insight: Network dependency tree; render-blocking-insight: Est savings of 80 ms
 
@@ -106,18 +106,18 @@ Auditorias abaixo de 0,9: valid-source-maps: Missing source maps for large first
 
 | Run | Perf | A11y | BP | SEO | LCP | CLS | TBT |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| 1 | 68 | 97 | 100 | 92 | 4676 ms | 0.001 | 320 ms |
-| 2 | 73 | 97 | 100 | 92 | 4644 ms | 0.001 | 183 ms |
-| 3 | 73 | 97 | 100 | 92 | 4637 ms | 0.001 | 185 ms |
+| 1 | 73 | 97 | 100 | 92 | 4637 ms | 0.001 | 176 ms |
+| 2 | 73 | 97 | 100 | 92 | 4629 ms | 0.001 | 174 ms |
+| 3 | 73 | 97 | 100 | 92 | 4635 ms | 0 | 174 ms |
 
-Auditorias abaixo de 0,9: first-contentful-paint: 3.6 s; largest-contentful-paint: 4.6 s; speed-index: 3.6 s; max-potential-fid: 130 ms; interactive: 4.7 s; valid-source-maps: Missing source maps for large first-party JavaScript; target-size: Touch targets do not have sufficient size or spacing.; unused-javascript: Est savings of 158 KiB; robots-txt: 32 errors found; bf-cache: 1 failure reason; lcp-discovery-insight: LCP request discovery; network-dependency-tree-insight: Network dependency tree
+Auditorias abaixo de 0,9: first-contentful-paint: 3.6 s; largest-contentful-paint: 4.6 s; speed-index: 3.6 s; interactive: 4.7 s; valid-source-maps: Missing source maps for large first-party JavaScript; target-size: Touch targets do not have sufficient size or spacing.; unused-javascript: Est savings of 158 KiB; robots-txt: 32 errors found; bf-cache: 1 failure reason; lcp-discovery-insight: LCP request discovery; network-dependency-tree-insight: Network dependency tree; render-blocking-insight: Est savings of 150 ms
 
 ### detail — desktop — simulate
 
 | Run | Perf | A11y | BP | SEO | LCP | CLS | TBT |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| 1 | 98 | 97 | 100 | 92 | 1046 ms | 0 | 3 ms |
-| 2 | 98 | 97 | 100 | 92 | 1055 ms | 0 | 3 ms |
-| 3 | 98 | 97 | 100 | 92 | 1073 ms | 0 | 0 ms |
+| 1 | 98 | 97 | 100 | 92 | 1077 ms | 0 | 0 ms |
+| 2 | 98 | 97 | 100 | 92 | 1061 ms | 0 | 1 ms |
+| 3 | 98 | 97 | 100 | 92 | 1050 ms | 0 | 1 ms |
 
 Auditorias abaixo de 0,9: valid-source-maps: Missing source maps for large first-party JavaScript; target-size: Touch targets do not have sufficient size or spacing.; unused-javascript: Est savings of 155 KiB; robots-txt: 32 errors found; bf-cache: 1 failure reason; image-delivery-insight: Est savings of 15 KiB; network-dependency-tree-insight: Network dependency tree; render-blocking-insight: Est savings of 80 ms

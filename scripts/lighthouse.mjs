@@ -13,6 +13,7 @@ import { setTimeout as sleep } from 'node:timers/promises'
 import { chromium } from '@playwright/test'
 import * as chromeLauncher from 'chrome-launcher'
 import lighthouse from 'lighthouse'
+import { throttling } from 'lighthouse/core/config/constants.js'
 import desktopConfig from 'lighthouse/core/config/desktop-config.js'
 import config from '../lighthouse/config.mjs'
 
@@ -40,6 +41,12 @@ async function waitForServer(url) {
 
 const base = `http://127.0.0.1:${config.port}`
 const preview = spawn(`npx vite preview --host 127.0.0.1 --port ${config.port} --strictPort`, { cwd: root, shell: true, stdio: 'ignore' })
+const desktopThrottling = {
+  ...throttling.desktopDense4G,
+  requestLatencyMs: throttling.desktopDense4G.rttMs * throttling.DEVTOOLS_RTT_ADJUSTMENT_FACTOR,
+  downloadThroughputKbps: throttling.desktopDense4G.throughputKbps * throttling.DEVTOOLS_THROUGHPUT_ADJUSTMENT_FACTOR,
+  uploadThroughputKbps: throttling.desktopDense4G.throughputKbps * throttling.DEVTOOLS_THROUGHPUT_ADJUSTMENT_FACTOR,
+}
 
 const results = []
 let chrome
@@ -49,58 +56,65 @@ try {
   chrome = await chromeLauncher.launch({ chromePath: chromium.executablePath(), chromeFlags: ['--headless=new', '--no-sandbox'] })
 
   for (const method of config.methods) {
-  for (const page of config.pages) {
-    for (const profile of config.profiles) {
-      const runs = []
-      for (let i = 1; i <= config.runs; i++) {
-        const result = await lighthouse(
-          `${base}${page.path}`,
-          { port: chrome.port, output: ['html', 'json'], logLevel: 'error', onlyCategories: config.categories, throttlingMethod: method },
-          profile === 'desktop' ? desktopConfig : undefined,
-        )
-        const lhr = result.lhr
-        const run = {
-          index: i,
-          scores: Object.fromEntries(config.categories.map((c) => [c, Math.round((lhr.categories[c]?.score ?? 0) * 100)])),
-          lcp: lhr.audits['largest-contentful-paint'].numericValue,
-          cls: lhr.audits['cumulative-layout-shift'].numericValue,
-          tbt: lhr.audits['total-blocking-time'].numericValue,
-          report: result.report,
-          lhr,
+    for (const page of config.pages) {
+      for (const profile of config.profiles) {
+        const runs = []
+        for (let i = 1; i <= config.runs; i++) {
+          const result = await lighthouse(
+            `${base}${page.path}`,
+            {
+              port: chrome.port,
+              output: ['html', 'json'],
+              logLevel: 'error',
+              onlyCategories: config.categories,
+              throttlingMethod: method,
+              ...(profile === 'desktop' && { throttling: desktopThrottling }),
+            },
+            profile === 'desktop' ? desktopConfig : undefined,
+          )
+          const lhr = result.lhr
+          const run = {
+            index: i,
+            scores: Object.fromEntries(config.categories.map((c) => [c, Math.round((lhr.categories[c]?.score ?? 0) * 100)])),
+            lcp: lhr.audits['largest-contentful-paint'].numericValue,
+            cls: lhr.audits['cumulative-layout-shift'].numericValue,
+            tbt: lhr.audits['total-blocking-time'].numericValue,
+            report: result.report,
+            lhr,
+          }
+          const name = `${page.id}-${profile}-${method}-run${i}`
+          writeFileSync(path.join(out, 'runs', `${name}.report.html`), run.report[0])
+          writeFileSync(path.join(out, 'runs', `${name}.report.json`), run.report[1])
+          console.log(name, run.scores, `LCP ${Math.round(run.lcp)}ms CLS ${run.cls.toFixed(3)} TBT ${Math.round(run.tbt)}ms`)
+          runs.push(run)
         }
-        const name = `${page.id}-${profile}-${method}-run${i}`
-        writeFileSync(path.join(out, 'runs', `${name}.report.html`), run.report[0])
-        writeFileSync(path.join(out, 'runs', `${name}.report.json`), run.report[1])
-        console.log(name, run.scores, `LCP ${Math.round(run.lcp)}ms CLS ${run.cls.toFixed(3)} TBT ${Math.round(run.tbt)}ms`)
-        runs.push(run)
-      }
-      // Representative report: the run whose performance score is the median.
-      const perfMedian = median(runs.map((r) => r.scores.performance))
-      const representative = runs.find((r) => r.scores.performance === perfMedian)
-      writeFileSync(path.join(out, 'reports', `${page.id}-${profile}-${method}.report.html`), representative.report[0])
-      writeFileSync(path.join(out, 'reports', `${page.id}-${profile}-${method}.report.json`), representative.report[1])
+        // Representative report: the run whose performance score is the median.
+        const perfMedian = median(runs.map((r) => r.scores.performance))
+        const representative = runs.find((r) => r.scores.performance === perfMedian)
+        writeFileSync(path.join(out, 'reports', `${page.id}-${profile}-${method}.report.html`), representative.report[0])
+        writeFileSync(path.join(out, 'reports', `${page.id}-${profile}-${method}.report.json`), representative.report[1])
 
-      const metricsItem = representative.lhr.audits.metrics.details.items[0]
-      results.push({
-        method,
-        observed: { fcpMs: Math.round(metricsItem.observedFirstContentfulPaint), lcpMs: Math.round(metricsItem.observedLargestContentfulPaint) },
-        page: page.id,
-        path: page.path,
-        profile,
-        median: Object.fromEntries(config.categories.map((c) => [c, median(runs.map((r) => r.scores[c]))])),
-        metrics: {
-          lcpMs: Math.round(median(runs.map((r) => r.lcp))),
-          cls: Number(median(runs.map((r) => r.cls)).toFixed(3)),
-          tbtMs: Math.round(median(runs.map((r) => r.tbt))),
-        },
-        runs: runs.map((r) => ({ run: r.index, ...r.scores, lcpMs: Math.round(r.lcp), cls: Number(r.cls.toFixed(3)), tbtMs: Math.round(r.tbt) })),
-        failedAudits: Object.values(representative.lhr.audits)
-          .filter((a) => a.score !== null && a.score < 0.9 && a.scoreDisplayMode !== 'informative' && a.scoreDisplayMode !== 'manual')
-          .map((a) => `${a.id}: ${a.displayValue ?? a.title}`)
-          .slice(0, 12),
-      })
+        const metricsItem = representative.lhr.audits.metrics.details.items[0]
+        results.push({
+          method,
+          observed: { fcpMs: Math.round(metricsItem.observedFirstContentfulPaint), lcpMs: Math.round(metricsItem.observedLargestContentfulPaint) },
+          page: page.id,
+          path: page.path,
+          profile,
+          median: Object.fromEntries(config.categories.map((c) => [c, median(runs.map((r) => r.scores[c]))])),
+          metrics: {
+            lcpMs: Math.round(median(runs.map((r) => r.lcp))),
+            cls: Number(median(runs.map((r) => r.cls)).toFixed(3)),
+            tbtMs: Math.round(median(runs.map((r) => r.tbt))),
+          },
+          runs: runs.map((r) => ({ run: r.index, ...r.scores, lcpMs: Math.round(r.lcp), cls: Number(r.cls.toFixed(3)), tbtMs: Math.round(r.tbt) })),
+          failedAudits: Object.values(representative.lhr.audits)
+            .filter((a) => a.score !== null && a.score < 0.9 && a.scoreDisplayMode !== 'informative' && a.scoreDisplayMode !== 'manual')
+            .map((a) => `${a.id}: ${a.displayValue ?? a.title}`)
+            .slice(0, 12),
+        })
+      }
     }
-  }
   }
 } finally {
   await chrome?.kill()

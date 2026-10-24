@@ -11,7 +11,8 @@ export default {
     { id: 'detail', path: '/nft/nft-001' },
   ],
   // mobile = Moto G Power emulation, slow 4G (150 ms RTT, 1.6 Mbps) + 4x CPU slowdown;
-  // desktop = Lighthouse desktop preset (cable network, no CPU slowdown).
+  // desktop = Lighthouse desktop preset (40 ms RTT, 10 Mbps, no CPU slowdown); for devtools runs the
+  // script derives the applied values (150 ms request latency, ~9 Mbps) with Lighthouse's factors.
   profiles: ['mobile', 'desktop'],
   /**
    * `devtools` (primary): throttling is APPLIED in the browser and the page is measured as it

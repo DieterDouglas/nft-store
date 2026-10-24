@@ -217,10 +217,12 @@ Resultados completos em [lighthouse/summary.md](lighthouse/summary.md) (mediana 
 
 | Página | Perfil | Performance (aplicado) | Performance (simulado) | A11y | BP | SEO |
 | --- | --- | ---: | ---: | ---: | ---: | ---: |
-| Início | desktop | 100 | 98 | 97 | 100 | 92 |
-| Detalhe | desktop | 99 | 98 | 97 | 100 | 92 |
-| Início | mobile | 66 | 71 | 96 | 96 | 92 |
-| Detalhe | mobile | 58 | 73 | 97 | 100 | 92 |
+| Início | desktop | 97 | 98 | 97 | 100 | 92 |
+| Detalhe | desktop | 91 | 98 | 97 | 100 | 92 |
+| Início | mobile | 66 | 72 | 96 | 96 | 92 |
+| Detalhe | mobile | 59 | 73 | 97 | 100 | 92 |
+
+Throttling aplicado: mobile = preset do Lighthouse (562,5 ms de latência por requisição, 1,6 Mbps, CPU 4×); desktop = os valores do preset desktop convertidos com os mesmos fatores do Lighthouse (150 ms, ~9 Mbps, CPU 1×), já que o preset desktop só define valores para o modo simulado.
 
 Acessibilidade, Best Practices e SEO atingem as metas em todas as combinações; performance desktop também. **Performance mobile fica abaixo de 90.**
 
