@@ -37,4 +37,5 @@ export function renderApp(element: HTMLElement) {
       </QueryClientProvider>
     </StrictMode>,
   )
+  return router
 }

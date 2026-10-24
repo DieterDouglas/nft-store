@@ -77,7 +77,9 @@ function RootLayout() {
       <RealtimeBridge />
       <SessionKeeper />
       <Header />
-      <main id="conteudo" tabIndex={-1} className={cn('mx-auto w-full max-w-[1200px] px-4 outline-none', showTabBar && 'max-md:pb-28')}>
+      {/* min-h-dvh keeps the footer below the fold while skeletons are shown; otherwise it
+          starts in view and gets pushed down when content arrives (layout shift / CLS). */}
+      <main id="conteudo" tabIndex={-1} className={cn('mx-auto min-h-dvh w-full max-w-300 px-4 outline-none', showTabBar && 'max-md:pb-28')}>
         <Outlet />
       </main>
       {/* Mobile frames are app-like: the footer only stays on the home page. */}

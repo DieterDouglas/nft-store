@@ -1,4 +1,5 @@
 import axios, { AxiosError, type AxiosRequestConfig } from 'axios'
+import { mocksReady } from '@/app/mocks-ready'
 import { guestCart, sessionStore } from './session-store'
 import type { ApiErrorBody, ApiErrorCode } from './types'
 
@@ -53,7 +54,9 @@ export function toApiError(error: unknown): ApiError {
   return new ApiError({ status: 0, code: 'INTERNAL', message: error instanceof Error ? error.message : 'Erro inesperado.' })
 }
 
-http.interceptors.request.use((config) => {
+http.interceptors.request.use(async (config) => {
+  // Requests made while the mock layer is still booting are held, not sent to the real network.
+  await mocksReady
   const session = sessionStore.get()
   if (session) config.headers.set('Authorization', `Bearer ${session.token}`)
   else config.headers.set('X-Cart-Id', guestCart.ensure())

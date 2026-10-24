@@ -1,6 +1,7 @@
-import { io, type Socket } from 'socket.io-client'
+import type { Socket } from 'socket.io-client'
 import type { QueryClient } from '@tanstack/react-query'
 import { qk } from '@/api/endpoints'
+import { mocksReady } from '@/app/mocks-ready'
 import type { ClientToServerEvents, Nft, NftListResponse, NftUpdatedEvent, Order, OrderUpdatedEvent, ServerToClientEvents } from '@/api/types'
 
 export const SOCKET_URL = import.meta.env.VITE_SOCKET_URL ?? 'wss://realtime.kurio.local'
@@ -80,16 +81,36 @@ function applyNftUpdate(queryClient: QueryClient, event: NftUpdatedEvent) {
  * Returns a disposer that removes every listener and closes the socket.
  */
 export function connectRealtime(queryClient: QueryClient, session: { token: string; userId: string } | null) {
-  const guard = new EventGuard()
-  const socket: KurioSocket = io(SOCKET_URL, {
-    // The MSW binding intercepts WebSocket only; long-polling would bypass it.
-    transports: ['websocket'],
-    reconnectionDelay: 500,
-    reconnectionDelayMax: 4000,
-  })
-  let hasConnectedBefore = false
-
+  let socket: KurioSocket | null = null
+  let disposed = false
   setConnection('connecting')
+
+  // socket.io-client is loaded only once the network layer is ready: engine.io-client captures
+  // the WebSocket constructor on evaluation, which must happen after MSW patched it.
+  void mocksReady
+    .then(() => import('socket.io-client'))
+    .then(({ io }) => {
+      if (disposed) return
+      socket = io(SOCKET_URL, {
+        // The MSW binding intercepts WebSocket only; long-polling would bypass it.
+        transports: ['websocket'],
+        reconnectionDelay: 500,
+        reconnectionDelayMax: 4000,
+      })
+      wire(socket, queryClient, session)
+    })
+
+  return () => {
+    disposed = true
+    socket?.removeAllListeners()
+    socket?.io.removeAllListeners()
+    socket?.disconnect()
+  }
+}
+
+function wire(socket: KurioSocket, queryClient: QueryClient, session: { token: string; userId: string } | null) {
+  const guard = new EventGuard()
+  let hasConnectedBefore = false
 
   socket.on('connect', () => {
     socket.emit('session.auth', { token: session?.token ?? null })
@@ -128,12 +149,6 @@ export function connectRealtime(queryClient: QueryClient, session: { token: stri
     }
     notices.emit({ kind: 'order-changed', order: event.data.order })
   })
-
-  return () => {
-    socket.removeAllListeners()
-    socket.io.removeAllListeners()
-    socket.disconnect()
-  }
 }
 
 function findNameInLists(queryClient: QueryClient, id: string) {

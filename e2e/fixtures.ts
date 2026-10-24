@@ -24,8 +24,9 @@ export const scenario = (page: Page, id: string) => mock(page, 'scenario', { id 
 /** Opens the app and waits until MSW and the Socket.IO connection are up. */
 export async function open(page: Page, path = '/') {
   await page.goto(path)
-  // Generous: the dev server may be compiling under parallel load on the first hit.
   await expect(page.getByRole('button', { name: /painel de cenários/i })).toBeVisible({ timeout: 20_000 })
+  // The UI paints before MSW finishes booting; control-plane calls need the worker active.
+  await expect(page.locator('html')).toHaveAttribute('data-mocks', 'ready', { timeout: 20_000 })
 }
 
 export async function login(page: Page, user: keyof typeof USERS = 'ana', from = '/') {

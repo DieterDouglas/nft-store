@@ -294,7 +294,11 @@ function DetailTabs({ nft }: { nft: Nft }) {
 function DetailSkeleton() {
   return (
     <div aria-busy="true" aria-label="Carregando NFT">
-      <div className="shimmer my-4 h-5 w-40 rounded" />
+      {/* Same box as the breadcrumb (padding, not margin: a margin would collapse through
+          <main> and shift the whole page when content replaces the skeleton → CLS). */}
+      <div className="py-4">
+        <div className="shimmer h-5 w-40 rounded" />
+      </div>
       <div className="grid gap-8 lg:grid-cols-2 lg:gap-10">
         <div className="flex flex-col-reverse gap-4 lg:flex-row lg:items-start">
           <div className="flex gap-3 lg:flex-col">

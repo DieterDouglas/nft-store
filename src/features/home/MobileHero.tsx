@@ -2,8 +2,10 @@ import { useState } from 'react'
 import { Link } from '@tanstack/react-router'
 import { ArrowRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import heroBackground from '@/assets/HeadHomeBGMobile.png'
-import heroComposition from '@/assets/Group 105.png'
+
+// Stable public paths so index.html can preload the mobile LCP images.
+const heroBackground = '/hero/bg-mobile.webp'
+const heroComposition = '/hero/composition-mobile.webp'
 
 type Slide =
   /** Figma export: main artwork with the inset already composed. */
