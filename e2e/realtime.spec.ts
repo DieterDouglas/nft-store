@@ -3,7 +3,6 @@ import { addFromDetail, expect, isMobile, login, mock, open, openReview, test } 
 
 const NFT = 'Golden Signal #160'
 
-/** Where the detail page shows the selected edition price. */
 const priceArea = (page: Page) => (isMobile(page) ? page.getByRole('region', { name: 'Comprar' }) : page.getByRole('article', { name: NFT }))
 
 test('eventos duplicados e antigos não regridem o preço (versionamento via Socket.IO)', async ({ page }) => {

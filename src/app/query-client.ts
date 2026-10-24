@@ -1,7 +1,6 @@
 import { QueryClient } from '@tanstack/react-query'
 import { toApiError } from '@/api/client'
 
-/** Cache/retry policy — documented in ARCHITECTURE.md › Estratégia de cache. */
 export function createQueryClient() {
   return new QueryClient({
     defaultOptions: {

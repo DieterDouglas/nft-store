@@ -21,7 +21,6 @@ export async function mock(page: Page, path: string, body: unknown = {}, method 
 
 export const scenario = (page: Page, id: string) => mock(page, 'scenario', { id }, 'PUT')
 
-/** Opens the app and waits until MSW and the Socket.IO connection are up. */
 export async function open(page: Page, path = '/') {
   await page.goto(path)
   await expect(page.getByRole('button', { name: /painel de cenários/i })).toBeVisible({ timeout: 20_000 })
@@ -39,13 +38,10 @@ export async function login(page: Page, user: keyof typeof USERS = 'ana', from =
   await expect(dialog).toBeHidden()
 }
 
-/** The "mobile" project renders the app-like mobile frames (< 768px). */
 export const isMobile = (page: Page) => (page.viewportSize()?.width ?? 1440) < 768
 
-/** Detail page buy button: "COMPRAR" (desktop) / "Comprar NFT" (mobile purchase bar). */
 export const buyButton = (page: Page) => page.getByRole('button', { name: /^(COMPRAR|Comprar NFT)$/ })
 
-/** Buys an NFT edition from its detail page (adds to the cart and opens it). */
 export async function addFromDetail(page: Page, nftId: string, { quantity = 1, edition }: { quantity?: number; edition?: RegExp } = {}) {
   await page.goto(`/nft/${nftId}`)
   await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
@@ -67,7 +63,6 @@ export async function expectCartCount(page: Page, count: number) {
   await expect(page.getByRole('link', { name: label }).first()).toBeVisible()
 }
 
-/** Opens the login modal over the current page from a visible trigger. */
 export async function openLoginFromPage(page: Page) {
   const trigger = isMobile(page)
     ? page.getByRole('link', { name: /^Entre para favoritar/ }).first() // detail top bar / card heart
@@ -83,7 +78,6 @@ export async function expectSignedIn(page: Page, name: string) {
   else await expect(page.getByRole('button', { name: `Conta de ${name}` })).toBeVisible()
 }
 
-/** Mobile payment keeps the collector data in a collapsible section. */
 export async function showBuyerFields(page: Page) {
   if (!isMobile(page)) return
   const details = page.locator('details', { hasText: 'Dados do colecionador' })

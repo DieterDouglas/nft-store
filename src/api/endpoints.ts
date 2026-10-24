@@ -36,7 +36,6 @@ function listQuery(params: NftListParams) {
   return search
 }
 
-/** Guest carts are identified by the id the server hands back on first use. */
 function rememberGuestCart(cart: Cart, authenticated: boolean) {
   if (!authenticated) guestCart.set(cart.id)
   return cart

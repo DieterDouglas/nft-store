@@ -10,7 +10,6 @@ import { CatalogFilters } from './CatalogFilters'
 import { useNftList } from './hooks'
 import { toggle, toListParams, withFilter, type CatalogSearch } from './search'
 
-/** Mobile frame top: "Explorar coleções" search + filter button (filters and sort in a sheet). */
 export function MobileCatalogBar({ search }: { search: CatalogSearch }) {
   const navigate = useNavigate()
   const [q, setQ] = useState(search.q ?? '')

@@ -17,7 +17,6 @@ const LINKS = [
 
 const item = 'flex items-center gap-3 border-l-4 px-4 py-3 text-sm whitespace-nowrap transition-colors'
 
-/** "Meu perfil" sidebar shared by profile, wallets and wishlist (Figma account area). */
 export function AccountLayout({ children }: { children: ReactNode }) {
   const { pathname } = useLocation()
   const navigate = useNavigate()

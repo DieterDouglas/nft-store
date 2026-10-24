@@ -27,7 +27,6 @@ export const LinkedinIcon = (p: SVGProps<SVGSVGElement>) => (
     <circle cx="4" cy="4" r="2" />
   </svg>
 )
-/** Full-color brand marks for the social login buttons. */
 export const GoogleLogo = (p: SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 48 48" {...p}>
     <path fill="#FFC107" d="M43.6 20.1H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 8 3l5.7-5.7C34 6.1 29.3 4 24 4 13 4 4 13 4 24s9 20 20 20 20-9 20-20c0-1.3-.1-2.6-.4-3.9z" />

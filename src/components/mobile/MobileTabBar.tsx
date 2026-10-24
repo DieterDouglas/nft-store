@@ -7,7 +7,6 @@ import { cn } from '@/lib/utils'
 
 const item = 'grid size-12 place-items-center rounded-full transition-colors'
 
-/** Bottom navigation of the mobile frames; the raised center button opens search. */
 export function MobileTabBar() {
   const { pathname } = useLocation()
   const count = useCart().data?.itemCount ?? 0

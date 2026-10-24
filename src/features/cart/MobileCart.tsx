@@ -71,7 +71,6 @@ function MobileCartRow({ line }: { line: CartLine }) {
   )
 }
 
-/** Mobile frame "Carrinho de NFTs": item cards + rounded summary sheet. */
 export function MobileCart() {
   const cart = useCart()
   const session = useSession()

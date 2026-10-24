@@ -18,7 +18,6 @@ const variants = {
   soft: 'size-9 border border-border bg-muted text-primary hover:bg-secondary',
 }
 
-/** Integer quantity control; values stay in [1, max]. */
 export function QuantityStepper({ value, max, onChange, disabled, label, variant = 'solid', className }: Props) {
   const button = cn(base, variants[variant])
   return (

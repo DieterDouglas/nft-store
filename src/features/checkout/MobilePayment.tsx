@@ -34,7 +34,6 @@ function ConnectorIcon({ provider }: { provider: WalletProvider }) {
   )
 }
 
-/** Mobile frame "Pagamento com carteira". Same state and guarantees as the desktop page. */
 export function MobilePayment({ wallets }: { wallets: Wallet[] }) {
   const { formRef, draft, setField, choose, wallet, quote, errors, connect, connected, disconnect, submit, buyer, closeReview } = usePayment(wallets)
   const [connector, setConnector] = useState<WalletProvider>(wallet.provider)

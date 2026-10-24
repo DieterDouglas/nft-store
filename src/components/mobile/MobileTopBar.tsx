@@ -5,7 +5,6 @@ import { cn } from '@/lib/utils'
 
 export const circleButton = 'grid size-11 shrink-0 place-items-center rounded-full border border-border bg-card/80 text-primary transition-colors hover:bg-muted'
 
-/** Mobile screen header: round back button, centered title and an optional action. */
 export function MobileTopBar({ title, action, className }: { title?: string; action?: ReactNode; className?: string }) {
   const router = useRouter()
   const canGoBack = useCanGoBack()

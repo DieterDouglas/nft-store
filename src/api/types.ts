@@ -30,8 +30,6 @@ export type Sort = (typeof SORTS)[number]
 export const TABS = ['all', 'new', 'trending'] as const
 export type CatalogTab = (typeof TABS)[number]
 
-// ---------- Errors ----------
-
 export type ApiErrorCode =
   | 'VALIDATION_ERROR'
   | 'UNAUTHENTICATED'
@@ -59,8 +57,6 @@ export interface ApiErrorBody {
     details?: unknown
   }
 }
-
-// ---------- Catalog ----------
 
 export interface Edition {
   id: string
@@ -145,8 +141,6 @@ export interface NftListResponse {
   }
 }
 
-// ---------- Session & account ----------
-
 export interface User {
   id: string
   /** "Nome de exibição" */
@@ -192,8 +186,6 @@ export interface ChangePasswordRequest {
   newPassword: string
 }
 
-// ---------- Wallets ----------
-
 export const WALLET_PROVIDERS = ['metamask', 'walletconnect', 'coinbase'] as const
 export type WalletProvider = (typeof WALLET_PROVIDERS)[number]
 export type WalletRole = 'primary' | 'secondary'
@@ -230,8 +222,6 @@ export interface WalletConnection {
   network: Network
   connectedAt: string
 }
-
-// ---------- Cart & quote ----------
 
 export type CartLineIssue = 'price-changed' | 'insufficient' | 'sold-out'
 
@@ -295,8 +285,6 @@ export interface Quote {
   expiresAt: string
 }
 
-// ---------- Orders ----------
-
 export type OrderStatus = 'pending' | 'confirmed' | 'declined'
 
 export interface CreateOrderRequest {
@@ -339,8 +327,6 @@ export interface Order {
   transaction: { hash: string; explorerUrl: string } | null
   declineReason: string | null
 }
-
-// ---------- Realtime (Socket.IO) ----------
 
 export interface RealtimeEnvelope<TType extends string, TResource extends string, TData> {
   /** Stable, unique event id (dedupe key). */

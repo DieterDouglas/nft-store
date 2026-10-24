@@ -18,8 +18,6 @@ export const toSummary = ({ id, name, image, category, network, price, compareAt
   version,
 })
 
-// ---------- Catalog mutations (always broadcast) ----------
-
 export function updateEdition(nftId: string, editionId: string | undefined, patch: Partial<Pick<Edition, 'price' | 'available'>>) {
   const nft = findNft(nftId)
   if (!nft) return null
@@ -32,8 +30,6 @@ export function updateEdition(nftId: string, editionId: string | undefined, patc
   emitNftUpdated(nft)
   return nft
 }
-
-// ---------- Cart ----------
 
 export function userCartId(userId: string) {
   return `cart-u-${userId}`
@@ -117,8 +113,6 @@ export function mergeCarts(guestCartId: string | null, userId: string) {
   return target
 }
 
-// ---------- Coupons & quote ----------
-
 export function findCoupon(code: string) {
   return db().coupons.find((c) => c.code.toUpperCase() === code.trim().toUpperCase())
 }
@@ -176,8 +170,6 @@ export function buildQuote(cart: MockCart, network: Network): Quote {
     expiresAt: new Date(now + 10 * 60_000).toISOString(),
   }
 }
-
-// ---------- Orders ----------
 
 function fakeHash(seed: string) {
   let out = '0x'

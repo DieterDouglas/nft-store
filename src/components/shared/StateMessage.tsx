@@ -27,7 +27,6 @@ export function StateMessage({ title, description, action, tone = 'empty', class
   )
 }
 
-/** Error state for a failed query, with a retry that refetches it. */
 export function QueryError({ error, onRetry, title = 'Não foi possível carregar.' }: { error: unknown; onRetry: () => void; title?: string }) {
   return (
     <StateMessage

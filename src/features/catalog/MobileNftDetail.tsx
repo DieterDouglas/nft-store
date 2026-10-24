@@ -8,7 +8,6 @@ import { formatEth } from '@/lib/money'
 import { cn } from '@/lib/utils'
 import { EditionPills, usePurchase } from './purchase'
 
-/** Swipeable gallery (scroll-snap) with position dots. */
 function Gallery({ nft }: { nft: Nft }) {
   const trackRef = useRef<HTMLUListElement>(null)
   const [index, setIndex] = useState(0)
@@ -108,7 +107,6 @@ export function MobileNftDetail({ nft, extra }: { nft: Nft; extra: ReactNode }) 
         {extra}
       </article>
 
-      {/* Fixed purchase bar from the mobile frame. */}
       <section aria-label="Comprar" className="fixed inset-x-0 bottom-0 z-30 rounded-t-[2rem] bg-card px-6 pt-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] shadow-[0_-8px_24px_rgb(0_0_0/0.35)]">
         <div className="mx-auto max-w-md space-y-4">
           <div className="flex items-center justify-between">

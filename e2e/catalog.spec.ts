@@ -15,7 +15,6 @@ async function closeFilters(page: Page) {
 
 const cardNames = (page: Page) => page.locator('#catalogo').getByRole('article').locator('h3')
 
-/** Resolves with the next catalog request whose query matches `check`. */
 const catalogRequest = (page: Page, check: (params: URLSearchParams) => boolean) =>
   page.waitForRequest((r: Request) => {
     const url = new URL(r.url())

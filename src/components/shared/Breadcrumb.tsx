@@ -3,7 +3,6 @@ import { Link } from '@tanstack/react-router'
 
 type Crumb = { label: string; to?: '/' | '/carrinho'; hash?: string }
 
-/** "Início / Mercado / …" trail from the layout; the last crumb is the current page. */
 export function Breadcrumb({ items }: { items: Crumb[] }) {
   return (
     <nav aria-label="Trilha de navegação" className="py-4 text-sm font-bold">

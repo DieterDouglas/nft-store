@@ -1,10 +1,9 @@
 /**
- * Lighthouse audit runner: builds nothing itself (run `npm run build` first or use
- * `npm run lighthouse`), serves dist/ with `vite preview`, audits every page × profile
- * `runs` times and writes:
- *   lighthouse/reports/<page>-<profile>.report.{html,json}  (median run, versioned)
- *   lighthouse/runs/…                                        (all runs, git-ignored)
- *   lighthouse/summary.md / summary.json                     (medians, metrics, environment)
+ * Lighthouse runner (`npm run lighthouse` builds first). Serves dist/ with `vite preview` and
+ * audits every page × profile × throttling method `runs` times, writing:
+ *   lighthouse/reports/<page>-<profile>-<method>.report.{html,json}  (median run, versioned)
+ *   lighthouse/runs/…                                                 (all runs, git-ignored)
+ *   lighthouse/summary.md / summary.json                              (medians, metrics, environment)
  */
 import { spawn } from 'node:child_process'
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'

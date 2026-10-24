@@ -13,7 +13,6 @@ export const http = axios.create({
   headers: { 'Content-Type': 'application/json' },
 })
 
-/** Normalised error every hook and component works with. */
 export class ApiError extends Error {
   readonly status: number
   readonly code: ApiErrorCode | 'NETWORK' | 'TIMEOUT' | 'CANCELED'
