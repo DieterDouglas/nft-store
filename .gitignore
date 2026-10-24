@@ -12,3 +12,6 @@ blob-report
 
 # Figma reference screenshots (kept locally, not part of the deliverable)
 /*.png
+
+# Lighthouse: individual runs (medians/representative reports are versioned)
+lighthouse/runs/

@@ -10,7 +10,7 @@
     "typecheck": "tsc -b --noEmit",
     "lint": "eslint .",
     "test:e2e": "playwright test",
-    "lighthouse": "node scripts/lighthouse.mjs"
+    "lighthouse": "npm run build && node scripts/lighthouse.mjs"
   },
   "msw": {
     "workerDirectory": [
