@@ -76,6 +76,12 @@
   :focus-visible {
     @apply outline-2 outline-offset-2 outline-ring;
   }
+  /* Tailwind 4 preflight resets buttons to the default cursor. */
+  button:not(:disabled),
+  [role='button']:not([aria-disabled='true']),
+  label:has(> input:not(:disabled)) {
+    cursor: pointer;
+  }
 }
 
 /* Skeleton shimmer: a moving highlight over the placeholder surface. */

@@ -18,6 +18,7 @@ export function NftCard({ nft, priority = false }: { nft: NftSummary; priority?:
   return (
     <article className="group relative" aria-labelledby={`nft-${nft.id}-name`}>
       <div className="relative rounded-md bg-card p-2 max-md:rounded-3xl">
+        {/* Outside the aria-hidden image link so screen readers still get the rarity. */}
         {nft.rarity && (
           <span className="absolute top-3 left-0 z-10 bg-primary px-3 py-0.5 text-xs font-bold text-primary-foreground uppercase">{nft.rarity}</span>
         )}
@@ -38,7 +39,7 @@ export function NftCard({ nft, priority = false }: { nft: NftSummary; priority?:
         )}
         {/* Desktop: favorited pieces stay marked without hovering (the toggle lives in the actions). */}
         {isFavorite && (
-          <span className={cn('absolute right-4 hidden size-8 place-items-center rounded-full bg-background/80 text-primary md:grid', nft.soldOut ? 'top-11' : 'top-4')}>
+          <span className={cn('absolute right-4 hidden size-8 place-items-center rounded-full bg-background/80 text-primary md:grid', nft.soldOut ? 'top-11' : 'top-4')} title="Nos favoritos">
             <Heart aria-hidden className="size-4 fill-primary" />
             <span className="sr-only">Nos seus favoritos</span>
           </span>

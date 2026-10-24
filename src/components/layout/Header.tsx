@@ -22,7 +22,6 @@ function NavLinks() {
       <li>
         <Link
           to="/"
-         
           className={cn(base, pathname === '/' && active)}
           aria-current={pathname === '/' ? 'page' : undefined}
         >
